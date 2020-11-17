@@ -11,6 +11,7 @@ class User(db.Model, UserMixin, TimestampMixin):
     password_hash = db.Column(db.String(128), nullable=False)
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
+    can_review_tasks = db.Column(db.Boolean, nullable=False, default=False)
     tasks = db.relationship('Task', backref='user', lazy=True)
 
     def set_password(self, password: str):
