@@ -1,2 +1,3 @@
-from app.views.auth_views import auth
-from app.views.index_views import main
+from .auth_views import auth
+from .index_views import main
+from .admin_views import UserAdminModelView, AdminModelView
