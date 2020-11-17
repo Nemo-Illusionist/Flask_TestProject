@@ -1,8 +1,8 @@
 from app.extensions import db
-from app.models.model_mixin import TimestampMixin, DeleteMixin
+from app.models.model_mixin import TimestampMixin
 
 
-class Task(db.Model, TimestampMixin, DeleteMixin):
+class Task(db.Model, TimestampMixin):
     id = db.Column(db.Integer, primary_key=True)
     lower_limit = db.Column(db.Float, nullable=False)
     upper_limit = db.Column(db.Float, nullable=False)
