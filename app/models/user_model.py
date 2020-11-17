@@ -23,4 +23,4 @@ class User(db.Model, UserMixin, TimestampMixin):
 
 
 def get_user_by_id(id: int) -> User:
-    return User.query.get(id)
+    return User.query.filter(User.id == id, User.is_active).first()
