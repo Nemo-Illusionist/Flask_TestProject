@@ -1,5 +1,3 @@
-from typing import Type
-
 from flask import Flask
 
 from .extensions import db, login_manager, admin
@@ -8,7 +6,7 @@ from .views import auth, main, UserAdminModelView, AdminModelView
 from config import Config
 
 
-def create_app(config: Type[Config]) -> Flask:
+def create_app(config: Config) -> Flask:
     app = Flask(__name__)
     app.config.from_object(config)
     configure_db(app)

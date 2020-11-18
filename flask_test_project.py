@@ -7,5 +7,6 @@ from app.extensions import db
 from app.models import User, Task
 from config import Config
 
-app = create_app(Config)
+config = Config()
+app = create_app(config)
 migrate = Migrate(app, db)
