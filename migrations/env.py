@@ -9,7 +9,7 @@ from sqlalchemy import pool
 
 # todo: import need for migrate
 # noinspection PyUnresolvedReferences
-from app.models import User, Task
+from app import models
 
 config = context.config
 
