@@ -37,5 +37,4 @@ def configure_login(app: Flask):
 
 
 def configure_blueprint(app: Flask):
-    # app.register_blueprint(auth)
     app.register_blueprint(main)
