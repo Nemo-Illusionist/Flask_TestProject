@@ -1,8 +1,9 @@
 from flask import Flask
 
-from .extensions import db, login_manager, admin
-from .models import get_user_by_id, Task
-from .views import auth, main, UserAdminModelView, AdminModelView
+from app.extensions import db, login_manager, admin
+from app.models import get_user_by_id
+from app.views import main
+from app.views.admin import UserAdminModelView, MyAdminIndexView, TaskAdminModelView
 from config import Config
 
 
@@ -21,9 +22,12 @@ def configure_db(app: Flask):
 
 
 def configure_admin(app: Flask):
-    admin.init_app(app)
+    admin.init_app(app, MyAdminIndexView())
+    admin.name = 'Flask test project'
+    admin.base_template = 'admin/master.html'
+    admin.template_mode = 'bootstrap3'
     admin.add_view(UserAdminModelView(db.session))
-    admin.add_view(AdminModelView(Task, db.session))
+    admin.add_view(TaskAdminModelView(db.session))
 
 
 def configure_login(app: Flask):
@@ -33,5 +37,5 @@ def configure_login(app: Flask):
 
 
 def configure_blueprint(app: Flask):
-    app.register_blueprint(auth)
+    # app.register_blueprint(auth)
     app.register_blueprint(main)
