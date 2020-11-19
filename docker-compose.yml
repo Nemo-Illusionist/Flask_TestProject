@@ -1,0 +1,16 @@
+version: '3'
+services:
+  flask_test:
+    build: .
+    ports:
+      - "8000:5000"
+    env_file: .env
+    restart: always
+    links:
+      - db:dbserver
+  db:
+    image: postgres:12
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file: .env-pgsql
