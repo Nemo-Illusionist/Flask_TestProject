@@ -7,6 +7,10 @@ from alembic import context
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
+# todo: import need for migrate
+# noinspection PyUnresolvedReferences
+from app.models import User, Task
+
 config = context.config
 
 fileConfig(config.config_file_name)

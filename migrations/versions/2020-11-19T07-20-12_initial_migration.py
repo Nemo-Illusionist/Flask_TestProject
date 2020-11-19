@@ -1,15 +1,14 @@
-"""empty message
+"""Initial migration.
 
-Revision ID: 7d66f834bc9e
+Revision ID: f97a73963d8a
 Revises: 
-Create Date: 2020-11-17 21:51:29.835841
+Create Date: 2020-11-19 07:20:12.816614+00:00
 
 """
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
-
-revision = '7d66f834bc9e'
+revision = 'f97a73963d8a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -17,8 +16,10 @@ depends_on = None
 
 def upgrade():
     op.create_table('user',
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"),
+              nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"),
+              nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=64), nullable=False),
     sa.Column('password_hash', sa.String(length=128), nullable=False),
@@ -28,8 +29,10 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
     op.create_table('task',
-    sa.Column('created_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"), nullable=False),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"),
+              nullable=False),
+    sa.Column('updated_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', CURRENT_TIMESTAMP)"),
+              nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('lower_limit', sa.Float(), nullable=False),
     sa.Column('upper_limit', sa.Float(), nullable=False),
