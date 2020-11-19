@@ -1,3 +1,3 @@
-from .admin_index_view import MyAdminIndexView
+from .auth_admin_index_view import AuthAdminIndexView
 from .user_admin_view import UserAdminModelView
 from .task_admin_view import TaskAdminModelView

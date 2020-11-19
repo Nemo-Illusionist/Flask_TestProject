@@ -3,7 +3,7 @@ from flask import Flask
 from app.extensions import db, login_manager, admin
 from app.models import get_user_by_id
 from app.views import main
-from app.views.admin import UserAdminModelView, MyAdminIndexView, TaskAdminModelView
+from app.views.admin import UserAdminModelView, AuthAdminIndexView, TaskAdminModelView
 from config import Config
 
 
@@ -22,7 +22,7 @@ def configure_db(app: Flask):
 
 
 def configure_admin(app: Flask):
-    admin.init_app(app, MyAdminIndexView())
+    admin.init_app(app, AuthAdminIndexView())
     admin.name = 'Flask test project'
     admin.base_template = 'admin/master.html'
     admin.template_mode = 'bootstrap3'
