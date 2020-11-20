@@ -13,7 +13,7 @@ class AuthAdminIndexView(AdminIndexView):
     def index(self):
         if not current_user.is_authenticated:
             return redirect(url_for('admin.login_view'))
-        return super(AuthAdminIndexView, self).index()
+        return super().index()
 
     @expose('/login/', methods=('GET', 'POST'))
     def login_view(self):
@@ -28,7 +28,7 @@ class AuthAdminIndexView(AdminIndexView):
             'admin.register_view') + '">Click here to register.</a></p>'
         self._template_args['form'] = form
         self._template_args['link'] = link
-        return super(AuthAdminIndexView, self).index()
+        return super().index()
 
     @expose('/register/', methods=('GET', 'POST'))
     def register_view(self):
@@ -46,7 +46,7 @@ class AuthAdminIndexView(AdminIndexView):
             'admin.logout_view') + '">Click here to log in.</a></p>'
         self._template_args['form'] = form
         self._template_args['link'] = link
-        return super(AuthAdminIndexView, self).index()
+        return super().index()
 
     @expose('/logout/')
     def logout_view(self):

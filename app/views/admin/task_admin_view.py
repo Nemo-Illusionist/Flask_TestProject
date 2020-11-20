@@ -13,5 +13,5 @@ class TaskAdminModelView(AdminModelView):
         return form
 
     def __init__(self, session, **kwargs):
-        super(TaskAdminModelView, self).__init__(Task, session, **kwargs)
+        super().__init__(Task, session, **kwargs)
         self.form_widget_args['user'] = {'disabled': True}
