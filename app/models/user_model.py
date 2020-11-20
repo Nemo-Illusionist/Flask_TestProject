@@ -12,7 +12,7 @@ class User(db.Model, UserMixin, TimestampMixin):
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
     can_review_tasks = db.Column(db.Boolean, nullable=False, default=False)
-    tasks = db.relationship('Task', backref='user', lazy=True)
+    tasks = db.relationship('Task', back_populates='user', lazy=True)
 
     def set_password(self, password: str):
         self.password_hash = generate_password_hash(password)
@@ -21,6 +21,9 @@ class User(db.Model, UserMixin, TimestampMixin):
         if self.password_hash is None:
             return False
         return check_password_hash(self.password_hash, password)
+
+    def __repr__(self):
+        return '<User %r>' % (self.username)
 
 
 def get_user_by_id(id: int) -> User:

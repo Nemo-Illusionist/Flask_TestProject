@@ -7,3 +7,4 @@ class Task(db.Model, TimestampMixin):
     lower_limit = db.Column(db.Float, nullable=False)
     upper_limit = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='tasks', foreign_keys=[user_id])
