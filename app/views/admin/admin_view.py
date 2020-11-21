@@ -40,3 +40,16 @@ class AdminModelView(ModelView):
         form = super().create_form(obj)
         form.created_at.data = form.updated_at.data = datetime.utcnow()
         return form
+
+    def set_permissions(self, is_can: bool):
+        self.can_edit = self.can_delete = self.can_create = is_can
+
+
+class AdminReadOnlyModelView(AdminModelView):
+    can_view_details = True
+    can_edit = False
+    can_delete = False
+    can_create = False
+
+    def set_permissions(self, is_can: bool):
+        pass
