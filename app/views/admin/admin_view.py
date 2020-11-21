@@ -1,8 +1,13 @@
 from datetime import datetime
 
 from flask import url_for, request, redirect
+from flask_admin import BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import current_user
+
+
+def _date_format(view, value):
+    return value.strftime('%Y-%m-%d %H:%M:%S')
 
 
 class AdminModelView(ModelView):
@@ -15,13 +20,17 @@ class AdminModelView(ModelView):
         },
     }
 
+    def __init__(self, model, session, name=None, category=None, endpoint=None, url=None, static_folder=None,
+                 menu_class_name=None, menu_icon_type=None, menu_icon_value=None):
+        super().__init__(model, session, name, category, endpoint, url, static_folder, menu_class_name, menu_icon_type,
+                         menu_icon_value)
+        self.column_type_formatters[datetime] = _date_format
+
     def is_accessible(self):
         if not current_user.is_authenticated:
             return False
 
-        self.can_edit = current_user.is_superuser
-        self.can_delete = current_user.is_superuser
-        self.can_create = current_user.is_superuser
+        self.create_form(current_user.is_superuser)
         return True
 
     def inaccessible_callback(self, name, **kwargs):
