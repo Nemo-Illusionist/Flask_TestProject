@@ -16,12 +16,19 @@ def pg_utc_now(element, compiler, **kw):
     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
 
 
-class TimestampMixin(object):
-    created_at = Column(DateTime, server_default=UtcNow(), nullable=False)
+class UpdatedMixin:
     updated_at = Column(DateTime, server_default=UtcNow(), server_onupdate=UtcNow(), nullable=False)
 
 
-class DeleteMixin(object):
+class CreatedMixin:
+    created_at = Column(DateTime, server_default=UtcNow(), nullable=False)
+
+
+class TimestampMixin(CreatedMixin, UpdatedMixin):
+    pass
+
+
+class DeleteMixin:
     delete_at = Column(DateTime, nullable=True)
 
     def set_deleted(self):
