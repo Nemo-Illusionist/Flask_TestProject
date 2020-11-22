@@ -3,7 +3,7 @@ from flask import Flask
 from app.extensions import db, login_manager, admin
 from app.models import get_user_by_id
 from app.views import main
-from app.views.admin import UserAdminModelView, AuthAdminIndexView, TaskAdminModelView
+from app.views.admin import UserAdminModelView, AuthAdminIndexView, TaskAdminModelView, UserStatisticAdminModelView
 from config import Config
 
 
@@ -28,6 +28,7 @@ def configure_admin(app: Flask):
     admin.template_mode = 'bootstrap3'
     admin.add_view(UserAdminModelView(db.session))
     admin.add_view(TaskAdminModelView(db.session))
+    admin.add_view(UserStatisticAdminModelView(db.session, endpoint='user_statistic', name='User Statistic'))
 
 
 def configure_login(app: Flask):
