@@ -1,13 +1,5 @@
 version: '3'
 services:
-  flask_test:
-    build: .
-    ports:
-      - "8000:5000"
-    env_file: docker/.env
-    depends_on:
-      - db
-    command: ["bash", "docker/boot.sh"]
   db:
     image: postgres:12
     env_file: docker/.env
@@ -15,6 +7,20 @@ services:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+  mq:
+    image: 'bitnami/rabbitmq:latest'
+    env_file: docker/.env
+    ports:
+      - "5673:5672"
+  flask_test:
+    build: .
+    env_file: docker/.env
+    ports:
+      - "8000:5000"
+    depends_on:
+      - db
+      - mq
+    command: [ "bash", "docker/boot.sh" ]
 volumes:
   pgdata:
     external: true
