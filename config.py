@@ -19,5 +19,10 @@ def env_var(key, default=None, required=False):
 class Config:
     SECRET_KEY = env_var('SECRET_KEY', required=True)
 
-    SQLALCHEMY_DATABASE_URI = env_var('DATABASE_URI', required=True)
+    SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@{}/{}'.format(
+        env_var('POSTGRES_USER', required=True),
+        env_var('POSTGRES_PASSWORD', required=True),
+        env_var('POSTGRES_HOST', required=True),
+        env_var('POSTGRES_DB', required=True)
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = env_var('SQLALCHEMY_TRACK_MODIFICATIONS', default=False)

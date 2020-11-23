@@ -4,13 +4,17 @@ services:
     build: .
     ports:
       - "8000:5000"
-    env_file: .env
-    restart: always
-    links:
-      - db:dbserver
+    env_file: docker/.env
+    depends_on:
+      - db
+    command: ["bash", "docker/boot.sh"]
   db:
     image: postgres:12
-    restart: always
+    env_file: docker/.env
     ports:
-      - "5432:5432"
-    env_file: .env-pgsql
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
+    external: true

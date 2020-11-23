@@ -2,18 +2,15 @@ FROM python:3.8-slim
 
 ENV FLASK_APP flask_test_project.py
 
-RUN adduser -D flask_test_project
-USER flask_test_project
+RUN apt update
+RUN apt install -y libpq-dev python3-dev gcc
 
-WORKDIR /home/flask_test_project
+COPY requirements/common.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
-COPY requirements.txt requirements.txt
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements/docker.txt
+COPY . app
+WORKDIR app
+#RUN chmod +x ./docker/boot.sh
 
-COPY app app
-COPY migrations migrations
-COPY flask_test_project.py config.py boot.sh ./
+#CMD ["bash", "./docker/boot.sh"]
 
-EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
