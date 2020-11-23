@@ -20,6 +20,9 @@ services:
     depends_on:
       - db
       - mq
+    links:
+      - "db:db"
+      - "mq:mq"
     command: [ "bash", "docker/boot.sh" ]
 volumes:
   pgdata:

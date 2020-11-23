@@ -7,5 +7,5 @@ from worker import create_celery
 
 config = Config()
 app = create_app(config)
-celery = create_celery(app.name, config)
+celery = create_celery(app.name, app.config)
 migrate = Migrate(app, db)
