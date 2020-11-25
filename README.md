@@ -1,6 +1,7 @@
 1. python -m venv venv
 1. venv/bin/pip install -r requirements/common.txt
 1. add `.env` file
+1. export FLASK_APP = flask_test_project
 1. flask db upgrade
 1. flask run
 
