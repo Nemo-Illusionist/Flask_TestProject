@@ -5,12 +5,13 @@ ENV FLASK_APP flask_test_project.py
 RUN apt update
 RUN apt install -y libpq-dev python3-dev gcc
 
-COPY requirements/common.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
+WORKDIR /app
 
-COPY . app
-WORKDIR app
-#RUN chmod +x ./docker/boot.sh
+COPY requirements /tmp/requirements
+RUN pip install -r /tmp/requirements/docker.txt
 
-#CMD ["bash", "./docker/boot.sh"]
+COPY . .
 
+RUN chmod +x ./docker/boot.sh
+
+CMD ["bash", "./docker/boot.sh"]
