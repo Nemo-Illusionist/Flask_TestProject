@@ -1,4 +1,4 @@
-#Start project:
+# Start project:
 
 ## docker-compose
 1. add `./dockr/.env` file 
