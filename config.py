@@ -21,7 +21,7 @@ def env_var(key, default=None, required=False, is_json=False):
         val = False
 
     if is_json:
-        val = json.load(val)
+        val = json.loads(val)
 
     return val
 
@@ -65,3 +65,4 @@ class Config:
         'RABBITMQ_HOST',
         'RABBITMQ_VHOST'
     )
+    CELERY_BEAT_SCHEDULE = env_var('CELERY_BEAT_SCHEDULE', default=False, is_json=True)

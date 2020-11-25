@@ -17,5 +17,5 @@ RABBITMQ_USERNAME=rabbitmq
 RABBITMQ_PASSWORD=rabbitmq
 RABBITMQ_VHOST=rabbitmq
 RABBITMQ_HOST=mq:5672
-BEAT_SCHEDULE="{'time_scheduler': {'task': 'celery.generate_random_number_tasks', 'schedule': 300.0,}}"
+CELERY_BEAT_SCHEDULE="{\"time_scheduler\": {\"task\": \"celery.generate_random_number_tasks\",\"schedule\": 300.0}}"
 ```
