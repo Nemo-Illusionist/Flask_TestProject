@@ -4,7 +4,7 @@
 1. add `./dockr/.env` file 
 1. use command `docker-compose up -d`
 
-### Example .env file
+### Example `./dockr/.env` file
 ```
 SECRET_KEY=9da3d8c6-8d7b-4869-8867-b77eef0a6058
 
