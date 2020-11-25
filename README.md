@@ -2,7 +2,7 @@
 
 ## docker-compose
 1. add `./dockr/.env` file 
-1. docker-compose up -d 
+1. use command `docker-compose up -d`
 
 Example .env file
 ```
