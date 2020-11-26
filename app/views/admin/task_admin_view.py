@@ -5,6 +5,7 @@ from ...models import Task, get_user_by_id
 
 
 class TaskAdminModelView(AdminModelView):
+    form_excluded_columns = ['results', ]
 
     def create_form(self, obj=None):
         form = super().create_form(obj)
