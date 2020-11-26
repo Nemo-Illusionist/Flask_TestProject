@@ -18,5 +18,5 @@ RABBITMQ_PASSWORD=rabbitmq
 RABBITMQ_VHOST=rabbitmq
 RABBITMQ_HOST=mq:5672
 
-BEAT_SCHEDULE="{\"time_scheduler\": {\"task\": \"worker.task.generate_random_number_tasks.generate_random_number_tasks\",\"schedule\": 300.0}}"
+BEAT_SCHEDULE="{\"time_scheduler\": {\"task\": \"task.generate_random_number_tasks\",\"schedule\": 300.0}}"
 ```

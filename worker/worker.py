@@ -2,19 +2,22 @@ from celery import Celery
 from flask import Flask
 
 from config import Config
-from .task import generate_random_number_task, generate_random_number_tasks
+
+celery = Celery(__name__)
+
+# todo: import need for register tasks
+# noinspection PyUnresolvedReferences
+from . import task
 
 
-def create_celery(app: Flask, config: Config) -> Celery:
-    celery = Celery(app.import_name)
-    add_context(celery, app)
-    add_conf(celery, config)
-    add_tasks(celery)
+def init_celery(app: Flask, config: Config) -> Celery:
+    add_context(app)
+    add_conf(config)
 
     return celery
 
 
-def add_conf(celery: Celery, config: Config):
+def add_conf(config: Config):
     celery.conf.update(
         result_backend=config.RESULT_BACKEND,
         broker_url=config.BROKER_URL,
@@ -26,12 +29,7 @@ def add_conf(celery: Celery, config: Config):
     )
 
 
-def add_tasks(celery: Celery):
-    celery.task(generate_random_number_task)
-    celery.task(generate_random_number_tasks)
-
-
-def add_context(celery: Celery, app: Flask):
+def add_context(app: Flask):
     celery.conf.update(app.config)
 
     TaskBase = celery.Task
@@ -41,6 +39,6 @@ def add_context(celery: Celery, app: Flask):
 
         def __call__(self, *args, **kwargs):
             with app.app_context():
-                return super.__call__(self, *args, **kwargs)
+                return TaskBase.__call__(self, *args, **kwargs)
 
     celery.Task = ContextTask

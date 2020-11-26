@@ -1,1 +1,1 @@
-from .worker import create_celery
+from .worker import init_celery
