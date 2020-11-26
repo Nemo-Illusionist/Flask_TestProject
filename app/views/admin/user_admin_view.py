@@ -9,6 +9,10 @@ class UserAdminModelView(AdminModelView):
     column_exclude_list = ['password_hash', ]
     form_excluded_columns = ['tasks', ]
 
+    def on_model_change(self, form, model: User, is_created):
+        if is_created or form.password_hash.object_data != model.password_hash:
+            model.set_password(model.password_hash)
+
     def __init__(self, session, name=None, category=None, endpoint=None, url=None, static_folder=None,
                  menu_class_name=None, menu_icon_type=None, menu_icon_value=None):
         super().__init__(User, session, name, category, endpoint, url, static_folder, menu_class_name, menu_icon_type,
