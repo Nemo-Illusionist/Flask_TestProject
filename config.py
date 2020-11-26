@@ -51,18 +51,18 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = env_var('SQLALCHEMY_TRACK_MODIFICATIONS', default=False)
 
     # CELERY
-    CELERY_BROKER_URL = get_connect_uri(
+    BROKER_URL = get_connect_uri(
         'amqp',
         'RABBITMQ_USERNAME',
         'RABBITMQ_PASSWORD',
         'RABBITMQ_HOST',
         'RABBITMQ_VHOST'
     )
-    CELERY_RESULT_BACKEND = get_connect_uri(
+    RESULT_BACKEND = get_connect_uri(
         'amqp',
         'RABBITMQ_USERNAME',
         'RABBITMQ_PASSWORD',
         'RABBITMQ_HOST',
         'RABBITMQ_VHOST'
     )
-    CELERY_BEAT_SCHEDULE = env_var('CELERY_BEAT_SCHEDULE', default=False, is_json=True)
+    BEAT_SCHEDULE = env_var('BEAT_SCHEDULE', default=False, is_json=True)
