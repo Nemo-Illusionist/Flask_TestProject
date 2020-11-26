@@ -1,3 +1,4 @@
+from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -15,7 +16,7 @@ class User(db.Model, UserMixin, TimestampMixin):
     tasks = db.relationship('Task', back_populates='user', lazy=True)
 
     def set_password(self, password: str):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password + current_app.config['SECRET_KEY'])
 
     def check_password(self, password: str) -> bool:
         if self.password_hash is None:
