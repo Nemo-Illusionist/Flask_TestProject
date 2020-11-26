@@ -16,15 +16,19 @@ class User(db.Model, UserMixin, TimestampMixin):
     tasks = db.relationship('Task', back_populates='user', lazy=True)
 
     def set_password(self, password: str):
-        self.password_hash = generate_password_hash(password + current_app.config['SECRET_KEY'])
+        self.password_hash = generate_password_hash(_add_salt(password))
 
     def check_password(self, password: str) -> bool:
         if self.password_hash is None:
             return False
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password_hash, _add_salt(password))
 
     def __repr__(self):
         return '<User %r>' % (self.username)
+
+
+def _add_salt(password: str) -> str:
+    return password + current_app.config['SECRET_KEY']
 
 
 def get_user_by_id(id: int) -> User:
