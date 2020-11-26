@@ -1,3 +1,4 @@
+from flask_login import current_user
 from sqlalchemy import func
 
 from app.models import User, Task
@@ -16,6 +17,9 @@ class UserAdminModelView(AdminModelView):
 
 class UserStatisticAdminModelView(AdminReadOnlyModelView):
     column_list = ['username', 'task_count']
+
+    def is_accessible(self):
+        return current_user.is_authenticated and (current_user.is_superuser or current_user.can_review_tasks)
 
     def get_query(self):
         return self.session.query(

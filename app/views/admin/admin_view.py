@@ -29,7 +29,7 @@ class AdminModelView(ModelView):
         if not current_user.is_authenticated:
             return False
 
-        self.create_form(current_user.is_superuser)
+        self.set_permissions(current_user.is_superuser)
         return True
 
     def inaccessible_callback(self, name, **kwargs):
