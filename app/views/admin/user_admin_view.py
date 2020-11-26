@@ -30,7 +30,7 @@ class UserStatisticAdminModelView(AdminReadOnlyModelView):
             User.id,
             User.username,
             func.count(Task.id).label('task_count')
-        ).select_from(User).join(Task).group_by(User.id, User.username)
+        ).select_from(User).outerjoin(Task).group_by(User.id, User.username)
 
     def __init__(self, session, name=None, category=None, endpoint=None, url=None, static_folder=None,
                  menu_class_name=None, menu_icon_type=None, menu_icon_value=None):
