@@ -14,4 +14,4 @@ COPY . .
 
 RUN chmod +x ./docker/boot.sh
 
-CMD ["bash", "./docker/boot.sh"]
+ENTRYPOINT ["bash", "./docker/boot.sh"]
