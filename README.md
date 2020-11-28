@@ -8,6 +8,7 @@
     1. `docker-compose up -d web`
     1. `docker-compose up -d beat`
     1. `docker-compose up -d worker`
+    1. `docker-compose up -d flower`
     
 
 ### Example `./dockr/.env` file

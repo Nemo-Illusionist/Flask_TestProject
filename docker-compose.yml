@@ -38,6 +38,16 @@ services:
     entrypoint: [ "celery", "beat", "--app=flask_test_project.celery", "--loglevel=INFO" ]
     volumes:
       - celerybeat:/app
+  flower:
+    build: .
+    env_file: docker/.env
+    depends_on:
+      - mq
+    entrypoint: [ "celery", "flower", "--app=flask_test_project.celery", "--loglevel=INFO" ]
+    volumes:
+      - celerybeat:/app
+    ports:
+      - "8888:5555"
 volumes:
   pgdata:
   celerybeat:
