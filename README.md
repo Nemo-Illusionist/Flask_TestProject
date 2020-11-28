@@ -3,6 +3,12 @@
 ## docker-compose
 1. add `./dockr/.env` file 
 1. use command `docker-compose up -d`
+    1. `docker-compose up -d db`
+    1. `docker-compose up -d mq`
+    1. `docker-compose up -d web`
+    1. `docker-compose up -d beat`
+    1. `docker-compose up -d worker`
+    
 
 ### Example `./dockr/.env` file
 ```
@@ -18,5 +24,5 @@ RABBITMQ_PASSWORD=rabbitmq
 RABBITMQ_VHOST=rabbitmq
 RABBITMQ_HOST=mq:5672
 
-BEAT_SCHEDULE="{\"time_scheduler\": {\"task\": \"task.generate_random_number_tasks\",\"schedule\": 300.0}}"
+GENERATE_RANDOM_NUMBER_TASKS_SCHEDULE=300
 ```

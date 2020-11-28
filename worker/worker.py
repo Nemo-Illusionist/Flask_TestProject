@@ -21,11 +21,16 @@ def add_conf(config: Config):
     celery.conf.update(
         result_backend=config.RESULT_BACKEND,
         broker_url=config.BROKER_URL,
-        timezone="UTC",
-        task_serializer="json",
-        accept_content=["json"],
-        result_serializer="json",
-        beat_schedule=config.BEAT_SCHEDULE,
+        timezone='UTC',
+        task_serializer='json',
+        accept_content=['json'],
+        result_serializer='json',
+        beat_schedule={
+            'time_scheduler': {
+                'task': 'task.generate_random_number_tasks',
+                'schedule': int(config.GENERATE_RANDOM_NUMBER_TASKS_SCHEDULE)
+            }
+        },
     )
 
 

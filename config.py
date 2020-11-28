@@ -1,4 +1,3 @@
-import json
 import os
 from os.path import join, dirname
 
@@ -8,7 +7,7 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 
 
-def env_var(key, default=None, required=False, is_json=False):
+def env_var(key, default=None, required=False):
     """ Parse environment variable accordingly. """
     if required:
         val = os.environ[key]
@@ -19,9 +18,6 @@ def env_var(key, default=None, required=False, is_json=False):
         val = True
     elif val == 'False':
         val = False
-
-    if is_json:
-        val = json.loads(val)
 
     return val
 
@@ -65,4 +61,5 @@ class Config:
         'RABBITMQ_HOST',
         'RABBITMQ_VHOST'
     )
-    BEAT_SCHEDULE = env_var('BEAT_SCHEDULE', default=False, is_json=True)
+    # BEAT_SCHEDULE = env_var('BEAT_SCHEDULE', default=False)
+    GENERATE_RANDOM_NUMBER_TASKS_SCHEDULE = env_var("GENERATE_RANDOM_NUMBER_TASKS_SCHEDULE", default=300)
