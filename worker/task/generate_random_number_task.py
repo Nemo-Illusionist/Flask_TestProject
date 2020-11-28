@@ -1,11 +1,12 @@
 from random import randint
 
+from celery import current_app
+
 from app import db
 from app.models import Task, TaskResults
-from ..worker import celery
 
 
-@celery.task(name='task.generate_random_number_task')
+@current_app.task(name='task.generate_random_number_task')
 def generate_random_number_task(task_id: int):
     task = db.session.query(Task).filter(Task.id == task_id).first()
     task_result = TaskResults(task_id=task.id, result=randint(task.lower_limit, task.upper_limit))

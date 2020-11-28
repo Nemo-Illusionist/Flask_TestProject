@@ -3,21 +3,17 @@ from flask import Flask
 
 from config import Config
 
-celery = Celery(__name__)
-
-# todo: import need for register tasks
-# noinspection PyUnresolvedReferences
-from . import task
-
 
 def init_celery(app: Flask, config: Config) -> Celery:
-    add_context(app)
-    add_conf(config)
+    celery = Celery('tasks')
+    add_context(celery, app)
+    add_conf(celery, config)
+    add_tasks()
 
     return celery
 
 
-def add_conf(config: Config):
+def add_conf(celery: Celery, config: Config):
     celery.conf.update(
         result_backend=config.RESULT_BACKEND,
         broker_url=config.BROKER_URL,
@@ -34,7 +30,13 @@ def add_conf(config: Config):
     )
 
 
-def add_context(app: Flask):
+def add_tasks():
+    # todo: import need for register tasks
+    # noinspection PyUnresolvedReferences
+    from . import task
+
+
+def add_context(celery: Celery, app: Flask):
     celery.conf.update(app.config)
 
     TaskBase = celery.Task
