@@ -39,7 +39,9 @@ If you have any troubles or questions do not hesitate to ask. Good luck!
 
 Write a flask application.
 
-Use Flask-Login ​https://flask-login.readthedocs.io/en/latest/​ for user’s log in/sign in, Flask-Admin ​https://flask-admin.readthedocs.io/en/latest/​ for class based views,
+Use Flask-Login ​https://flask-login.readthedocs.io/en/latest/​ for user’s log in/sign in
+
+Flask-Admin ​https://flask-admin.readthedocs.io/en/latest/​ for class based views
 
 SQLAlchemy ​https://www.sqlalchemy.org/​ as an ORM
 
