@@ -76,3 +76,22 @@ Add migration:
 Add view with a list of usernames and amount of their tasks (accessible by superusers and users with flag can_review_tasks).
 
 P.S. Remember that you will work in a team with other people and they will read your code. So respect their time and write code so that anyone can understand what is going on there.
+
+### Level up.
+
+Add docker-compose file with database service (i), flask_app service. All app sources should be mounted into container and updates of files should not require rebuilding images.
+
+### Level up.
+
+Add model TaskResults:
+- task_id: foreigh key to task.id
+- task_params: json field with {lower_limit, upper_limit, author_id (task.created_by)}
+- result: float
+
+Add celery (​https://docs.celeryproject.org/en/stable/​) task (​generate_random_number_task​) for generating random number from the given range and writing result as TaskResult into db. Add another celery task which will be started by schedule (celery beat) every 5 minutes and start asynchronously ​generate_random_number_task​s for each Task from db.
+
+generate_random_number_task​ should be wrapped into a docker container and be run as separate services. Use rabbit mq as a task brocker and results backend. The launcher of Tasks should be run in the same container as the flask application.
+
+### Level up.
+
+Add logging and a few tests.
